@@ -1,10 +1,13 @@
 package com.cjh.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cjh.entity.Good;
@@ -24,8 +27,15 @@ public class GoodController {
 	
 	@RequestMapping("/selectAll")
 	@ResponseBody
-	public List<Good> selectAll() throws Exception{
-		return goodService.selectAll();
+	public Map<String, Object> selectAll(String name,
+			@RequestParam(value = "page", defaultValue = "1") Integer page,
+			Integer rows) throws Exception{
+		Integer count = goodService.selectCount(name);
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<Good> list = goodService.selectAll(name, rows*(page-1), rows);
+		map.put("rows", list);
+		map.put("total", count);
+		return map;
 	}
 	
 	@RequestMapping(value="/insert", produces = "application/json; charset=utf-8")

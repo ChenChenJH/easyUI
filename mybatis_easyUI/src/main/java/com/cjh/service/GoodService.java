@@ -1,6 +1,8 @@
 package com.cjh.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,8 +16,18 @@ public class GoodService {
 	private GoodMapper goodMapper;
 
 	// 查询所有
-	public List<Good> selectAll() throws Exception {
-		return goodMapper.selectAll();
+	public Integer selectCount(String name) throws Exception {
+		Map<String,Object> queryMap = new HashMap<String,Object>();
+		queryMap.put("name", name);
+		return goodMapper.selectCount(queryMap);
+	}
+	// 查询所有
+	public List<Good> selectAll(String name,Integer start,Integer rows) throws Exception {
+		Map<String,Object> queryMap = new HashMap<String,Object>();
+		queryMap.put("name", name);
+		queryMap.put("start", start);
+		queryMap.put("rows", rows);
+		return goodMapper.selectAll(queryMap);
 	}
 
 	// 按id查询

@@ -1,12 +1,16 @@
 package com.cjh.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import com.cjh.entity.Good;
 
 public interface GoodMapper {
+	//查询数据总数
+	public Integer selectCount(Map<String,Object> queryMap) throws Exception;
+	
 	//查询所有
-	public List<Good> selectAll() throws Exception;
+	public List<Good> selectAll(Map<String,Object> queryMap) throws Exception;
 	
 	//按id查询
 	public Good selectById(Integer id) throws Exception;

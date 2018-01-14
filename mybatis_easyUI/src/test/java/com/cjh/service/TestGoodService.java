@@ -18,10 +18,10 @@ public class TestGoodService{
 	
 	@Test
 	public void testSelectAll() throws Exception{
-		List<Good> list = goodService.selectAll();
+		/*List<Good> list = goodService.selectAll();
 		for(Good good:list){
 			System.out.println("名称:"+good.getName()+",产量:"+good.getNum()+",月份:"+good.getProTime());
-		}
+		}*/
 	}
 	
 	@Test

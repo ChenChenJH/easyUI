@@ -25,24 +25,29 @@
 <body>
 	<!-- 显示列表 -->
 	<table id="dg" class="easyui-datagrid"
-		style="width: 550px; height: 350px" url="good/selectAll"
-		toolbar="#toolbar" rownumbers="true" fitColumns="true"
-		singleSelect="true" >
+		style="width: 550px; height: 390px" url="good/selectAll"
+		toolbar="#toolbar" rownumbers="true" fitColumns="true"  
+		 pagination="true"  title="Load Data" iconCls="icon-tip">
 		<thead>
 			<tr>
+			  	<th field="ck" checkbox="true">全选</th>
 				<th field="id" width="50">主键id</th>
 				<th field="name" width="50">名称</th>
 				<th field="num" width="50">销量</th>
-				<th field="proTime" width="50">月份</th>
+				<th field="proTime" width="50" >月份</th>
 			</tr>
 		</thead>
 	</table>
 	<div id="toolbar">
 		<a class="easyui-linkbutton" iconCls="icon-add" plain="true"
-			onclick="newUser()">New User</a> <a class="easyui-linkbutton"
-			iconCls="icon-edit" plain="true" onclick="editUser()">Edit User</a> <a
-			class="easyui-linkbutton" iconCls="icon-remove" plain="true"
-			onclick="destroyUser()">Remove User</a>
+			onclick="newUser()">New User</a> 
+		<a class="easyui-linkbutton"
+			iconCls="icon-edit" plain="true" onclick="editUser()">Edit User</a> 
+		<a class="easyui-linkbutton" iconCls="icon-remove" plain="true"
+			onclick="destroyUser()">Remove User</a><br/>
+		 <span>名称:</span>
+        <input id="productid" style="line-height:20px;border:1px solid #ccc">
+        <a   class="easyui-linkbutton"  onclick="doSearch()">Search</a>
 	</div>
 
 	<!-- 新增页面 -->
@@ -75,10 +80,18 @@
 	<div id="dlg-buttons">
 		<a class="easyui-linkbutton" iconCls="icon-ok" onclick="saveUser()">Save</a>
 		<a class="easyui-linkbutton" iconCls="icon-cancel"
-			onclick="javascript:$('#dlg').dialog('close')">Cancel</a>
+			onclick="javascript:$('#dlg').dialog('close')">Cancel</a><br/>
 	</div>
 
 	<script>
+	//设置行背景颜色
+	 $('#dg').datagrid({
+        rowStyler:function(index,row){
+            if (row.num>=40){
+                return 'background-color:pink;color:blue;font-weight:bold;';
+            }
+        }
+    });
 		var url = "";
 		//打开添加窗口
 		function newUser() {
@@ -120,7 +133,6 @@
 		}
 
 		//删除
-
 		function destroyUser() {
 			var row = $('#dg').datagrid('getSelected');
 			if (row) {
@@ -145,6 +157,14 @@
 						});
 			}
 		}
+		
+		//查询
+		 function doSearch(){
+		        $('#dg').datagrid('load',{
+		            name: $('#productid').val().trim(),
+		        });
+		   }
+		
 	</script>
 </body>
 </html>
